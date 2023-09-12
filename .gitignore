@@ -1,4 +1,5 @@
+*~
+*.log*
 SerialICE/.config
 SerialICE/.config.old
 SerialICE/build/
-*~

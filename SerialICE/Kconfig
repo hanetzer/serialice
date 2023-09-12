@@ -53,6 +53,9 @@ config BOARD_ASROCK_H81M_HDS
 config BOARD_ASROCK_P4I65GV
 	bool "ASRock P4i65GV"
 
+config BOARD_ASROCK_X370KILLERSLI
+	bool "ASRock X370 Killer Sli"
+
 config BOARD_ASUS_F2A85_M
 	bool "ASUS F2A85-M"
 	select BUILD_XMMSTACK
@@ -204,13 +207,14 @@ config SOUTHBRIDGE_INIT
 	default "southbridge/intel-sunrise.c" if BOARD_SUPERMICRO_X11SSM_F || BOARD_ACER_ES1_572
 	default "southbridge/amd-sbxxx.c" if BOARD_ASUS_F2A85_M || BOARD_JETWAY_NF81_T56N_LF
 	default "southbridge/amd-sbxxx.c" if BOARD_ASUS_P2_M3A3200
+	default "southbridge/amd-sbxxx.c" if BOARD_ASROCK_X370KILLERSLI
 
 config SUPERIO_INIT
 	string
 	default "superio/ite-it8718f.c" if BOARD_ASUS_P2_M3A3200
 	default "superio/winbond-w83627thg.c" if BOARD_KONTRON_986LCD_M
 	default "superio/fintek-f71869ad.c" if BOARD_JETWAY_NF81_T56N_LF
-	default "superio/nuvoton-nct6776.c" if BOARD_ASROCK_H81M_HDS
+	default "superio/nuvoton-nct6776.c" if BOARD_ASROCK_H81M_HDS || BOARD_ASROCK_X370KILLERSLI
 	default "superio/aspeed-ast.c" if BOARD_SUPERMICRO_X11SSM_F
 
 choice

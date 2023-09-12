@@ -64,7 +64,7 @@ NM=$(CROSS)nm
 
 LDFLAGS=-Wa,--divide -nostdlib -nostartfiles -static -T serialice.ld -Wl,--defsym,ALIGNED_ROMSIZE=$(CONFIG_ROMSIZE)
 
-SOURCES = serialice.c serialice.h chipset.c serial.c types.h mainboard/*.c
+SOURCES = serialice.c serialice.h chipset.c serial.c types.h mainboard/*.c southbridge/*.c superio/*.c
 
 HOSTCC ?= gcc
 HOSTCXX ?= g++
@@ -119,7 +119,7 @@ $(obj)/serialice.elf: $(obj)/serialice.o $(obj)/start.o $(src)/serialice.ld
 	$(Q)$(CC) $(LDFLAGS) -o $@ $(obj)/serialice.o $(obj)/start.o
 	$(Q)$(NM) $@ | sort -u > $(obj)/serialice.map
 
-$(obj)/serialice.S: $(SOURCES) $(obj)/romcc
+$(obj)/serialice.S: $(SOURCES) $(obj)/romcc $(KCONFIG_AUTOHEADER)
 	$(Q)printf "  ROMCC    $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(obj)/romcc -mcpu=i386 $(INCLUDES) -I. -Imainboard -Isouthbridge -Isuperio -DVERSION=\"$(VERSION)\" -o $@.tmp $<
 	$(Q)printf ".section \".rom.text\"\n.globl main\nmain:\n" > $@
